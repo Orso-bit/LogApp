@@ -1,0 +1,85 @@
+//
+//  ClusterDetailView.swift
+//  SwiftDataLog
+//
+//  Created by Vincenzo Salzano on 22/05/25.
+//
+
+import SwiftUI
+import SwiftData
+
+struct ClusterDetailView: View {
+    @Environment(\.modelContext) private var modelContext
+    let cluster: Cluster
+    
+    @State private var showingAddTree = false
+    @State private var showingEditTree = false
+    @State private var selectedTreeToEdit: Tree?
+    
+    var body: some View {
+        List {
+            if cluster.trees.isEmpty {
+                ContentUnavailableView(
+                    "Nessun albero",
+                    systemImage: "tree",
+                    description: Text("Aggiungi il primo albero a questo cluster")
+                )
+            } else {
+                ForEach(cluster.trees) { tree in
+                    Button(action: {
+                        selectedTreeToEdit = tree
+                        showingEditTree = true
+                    }) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(tree.name)
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            Text(tree.species)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            if !tree.extraNotes.isEmpty {
+                                Text(tree.extraNotes)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Text("Creato: \(tree.createdAt, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)//terziario
+                        }
+                        .padding(.vertical, 2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .onDelete(perform: deleteTrees)
+            }
+        }
+        .navigationTitle(cluster.name)
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showingAddTree = true
+                }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddTree) {
+            AddTreeView()
+        }
+        .sheet(isPresented: $showingEditTree) {
+            if let tree = selectedTreeToEdit {
+                EditTreeView(tree: tree)
+            }
+        }
+    }
+    
+    private func deleteTrees(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(cluster.trees[index])
+            }
+        }
+    }
+}
