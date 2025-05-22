@@ -1,5 +1,5 @@
 //
-//  DiaryView.swift
+//  SwiftUIView.swift
 //  Log
 //
 //  Created by Alessandro Rippa on 22/05/25.
@@ -8,26 +8,46 @@
 import SwiftUI
 
 struct DiaryView: View {
-    @State private var search : String = ""
+    @State private var search : String = " "
     
     
     var body: some View {
         
         NavigationStack{
-            List {
+            
+            List{
                 
-                NavigationLink{
-                    TreeView()
-                } label: {
-                    Text ("Tree")
+                ForEach(0..<10){ index in
+                    
+                    
+                    NavigationLink{
+                        ClusterView()
+                    } label: {
+                        
+                        Text ("Cluster")
+                        
+                    }
+                    
                 }
                 
             }
-            .listStyle(.plain)
-            .navigationTitle("Cluster name")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink{
+                        ToolView()
+                    } label:{
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .listStyle(.insetGrouped)
+            .navigationTitle("Clusters")
+            .accessibilityLabel("Clusters")
             .searchable(text: $search)
         }
+        
     }
+    
 }
 
 #Preview {
