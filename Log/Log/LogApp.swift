@@ -12,6 +12,7 @@ struct LogApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(LocationStore())
         }
     }
 }

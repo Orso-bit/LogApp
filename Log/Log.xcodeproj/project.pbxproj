@@ -11,6 +11,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		5C6F59AA2DDE23D500A1760B /* Map */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Map;
+			sourceTree = "<group>";
+		};
 		5CDCDB902DDE06CB00D3E9C4 /* Log */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Log;
@@ -34,6 +39,7 @@
 			children = (
 				5CDCDB902DDE06CB00D3E9C4 /* Log */,
 				5CDCDB8F2DDE06CB00D3E9C4 /* Products */,
+				5C6F59AA2DDE23D500A1760B /* Map */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +67,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				5C6F59AA2DDE23D500A1760B /* Map */,
 				5CDCDB902DDE06CB00D3E9C4 /* Log */,
 			);
 			name = Log;
