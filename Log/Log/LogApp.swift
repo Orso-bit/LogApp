@@ -11,7 +11,7 @@ import SwiftUI
 struct LogApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DiaryView() //DiaryView sarà la nuova view principale sostituendo contentView!
         }
     }
 }
