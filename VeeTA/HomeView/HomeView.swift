@@ -13,11 +13,14 @@ struct HomeView: View {
     @Query private var clusters: [Cluster]
     @Query private var trees: [Tree]
     
+    @State private var searchableText: String = ""
     @State private var showingAddOptions = false
     @State private var showingAddTree = false
     @State private var showingAddCluster = false
     @State private var showingEditTree = false
     @State private var selectedTreeToEdit: Tree?
+    
+    private var appGreen = Color (red: 67/255, green: 175/255, blue: 65/255)
     
     var orphanTrees: [Tree] {
         trees.filter { $0.cluster == nil }
@@ -25,14 +28,16 @@ struct HomeView: View {
     
     var body: some View {
         NavigationSplitView {
-            List {
+            VStack {
                 // Sezione Cluster
                 if !clusters.isEmpty {
-                    Section("Cluster") {
+                    //Section("Cluster")
+                    ScrollView{
                         ForEach(clusters, id: \.self) { cluster in
                             NavigationLink {
                                 ClusterDetailView(cluster: cluster)
                             } label: {
+                                /*
                                 HStack {
                                     Image(systemName: "folder")
                                         .foregroundColor(.blue)
@@ -44,7 +49,39 @@ struct HomeView: View {
                                             .foregroundColor(.secondary)
                                     }
                                 }
+                                */
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .frame(height: 90)
+                                        .foregroundStyle(Color.accentColor)
+                                    HStack{
+                                        VStack{
+                                            Text(cluster.name)
+                                                .font(.title)
+                                                .fontWeight(.semibold)
+                                                .foregroundStyle(.white)
+                                                .lineLimit(1)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                        VStack{
+                                            Spacer()
+                                            HStack{
+                                                Image(systemName: "tree.fill")
+                                                    .foregroundStyle(.white)
+                                                Text("\(cluster.trees.count)")
+                                                    .font(.title)
+                                                    .fontWeight(.semibold)
+                                                    .foregroundStyle(.white)
+                                            }
+                                            
+                                        }
+                                    }
+                                    .padding()
+                                }
                             }
+                            .padding(.horizontal, 20)
+                            .padding(.top, 20)
                         }
                         .onDelete(perform: deleteClusters)
                     }
@@ -72,7 +109,7 @@ struct HomeView: View {
                                             .lineLimit(2)
                                     }
                                 }
-                                .padding(.vertical, 2)
+                                .padding(20)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -90,7 +127,9 @@ struct HomeView: View {
                     )
                 }
             }
-            .navigationTitle("VTA")
+            .navigationTitle("Clusters")
+            .foregroundStyle(Color.accentColor)
+            .searchable(text: $searchableText)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -99,6 +138,7 @@ struct HomeView: View {
                         Image(systemName: "plus")
                     }
                 }
+                
             }
             .confirmationDialog("Aggiungi", isPresented: $showingAddOptions) {
                 Button("Nuovo Albero") {

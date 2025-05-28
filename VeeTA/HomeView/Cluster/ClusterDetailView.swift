@@ -14,6 +14,7 @@ struct ClusterDetailView: View {
     
     @State private var showingAddTree = false
     @State private var selectedTreeToEdit: Tree?
+    @State private var searchableText: String = ""
     
     var body: some View {
         List {
@@ -52,6 +53,8 @@ struct ClusterDetailView: View {
                 .onDelete(perform: deleteTrees)
             }
         }
+        .searchable(text: $searchableText)
+        .listStyle(.plain)
         .navigationTitle(cluster.name)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
