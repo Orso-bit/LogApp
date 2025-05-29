@@ -71,7 +71,8 @@ struct ClusterDetailView: View {
         }
         .sheet(item: $selectedTreeToEdit) { tree in
             NavigationStack {
-                EditTreeView(tree: tree)
+                //EditTreeView(tree: tree)
+                TreeView(tree:tree)
             }
         }
     }
