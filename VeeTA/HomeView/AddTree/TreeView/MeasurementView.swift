@@ -91,7 +91,7 @@ struct MeasurementView: View {
                     VStack{
                         Image(systemName: "angle")
                             .foregroundStyle(.white)
-                        Text("\(tree.currentInclination)°")
+                        Text("\(tree.currentInclination)")
                             .lineLimit(1)
                             .font(.title)
                             .fontWeight(.regular)
@@ -113,7 +113,7 @@ struct MeasurementView: View {
                     VStack{
                         Image(systemName: "leaf.fill")
                             .foregroundStyle(.white)
-                        Text("\(tree.currentDiameter)m²")
+                        Text("\(tree.currentDiameter)")
                             .lineLimit(1)
                             .font(.title)
                             .fontWeight(.regular)

@@ -37,19 +37,7 @@ struct HomeView: View {
                             NavigationLink {
                                 ClusterDetailView(cluster: cluster)
                             } label: {
-                                /*
-                                HStack {
-                                    Image(systemName: "folder")
-                                        .foregroundColor(.blue)
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(cluster.name)
-                                            .font(.headline)
-                                        Text("\(cluster.trees.count) alberi")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                    }
-                                }
-                                */
+                                
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 20)
                                         .frame(height: 90)
@@ -80,10 +68,14 @@ struct HomeView: View {
                                     .padding()
                                 }
                             }
+                            .onLongPressGesture(minimumDuration: 0.5){
+                                modelContext.delete(cluster)
+                            }
                             .padding(.horizontal, 20)
                             .padding(.top, 20)
                         }
                         .onDelete(perform: deleteClusters)
+                        
                     }
                 }
                 

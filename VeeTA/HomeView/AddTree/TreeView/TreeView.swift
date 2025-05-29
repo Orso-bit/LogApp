@@ -15,7 +15,8 @@ struct TreeView: View {
     @Query private var clusters: [Cluster]
     
     @Bindable var tree: Tree
-    
+    @State private var selectedTreeToEdit: Tree?
+    @State private var mapIsSelected: Bool = false
     
     @State private var showingHeightMeasurement = false
     @State private var showingLengthMeasurement = false
@@ -29,8 +30,6 @@ struct TreeView: View {
     
     
     var body: some View {
-        
-        
         
         NavigationView{
                 
@@ -111,21 +110,29 @@ struct TreeView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button{
-                       
+                        selectedTreeToEdit = tree
                     } label: {
                         Image(systemName: "pencil")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button{
-                       
+                        mapIsSelected = true
                     } label: {
                         Image(systemName: "map.fill")
                     }
                 }
             }
         }
-        
+        .sheet(item: $selectedTreeToEdit) { tree in
+            NavigationStack {
+                EditTreeView(tree: tree)
+                
+            }
+        }
+        .sheet(isPresented: $mapIsSelected){
+            MapView()
+        }
     }
 }
 

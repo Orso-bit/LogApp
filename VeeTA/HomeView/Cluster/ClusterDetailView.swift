@@ -17,6 +17,7 @@ struct ClusterDetailView: View {
     @State private var searchableText: String = ""
     
     var body: some View {
+        NavigationStack{
         List {
             if cluster.trees.isEmpty {
                 ContentUnavailableView(
@@ -26,9 +27,9 @@ struct ClusterDetailView: View {
                 )
             } else {
                 ForEach(cluster.trees) { tree in
-                    Button(action: {
-                        selectedTreeToEdit = tree
-                    }) {
+                    NavigationLink{
+                        TreeView(tree: tree)
+                    }label:{
                         VStack(alignment: .leading, spacing: 4) {
                             Text(tree.name)
                                 .font(.headline)
@@ -48,7 +49,6 @@ struct ClusterDetailView: View {
                         .padding(.vertical, 2)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
                 .onDelete(perform: deleteTrees)
             }
@@ -56,9 +56,9 @@ struct ClusterDetailView: View {
         .searchable(text: $searchableText)
         .listStyle(.plain)
         .navigationTitle(cluster.name)
-        .navigationBarTitleDisplayMode(.large)
+        //.navigationBarTitleDisplayMode(.large)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem() {
                 Button(action: {
                     showingAddTree = true
                 }) {
@@ -66,15 +66,19 @@ struct ClusterDetailView: View {
                 }
             }
         }
+        
+    }
         .sheet(isPresented: $showingAddTree) {
             AddTreeView()
         }
+        /*
         .sheet(item: $selectedTreeToEdit) { tree in
             NavigationStack {
                 //EditTreeView(tree: tree)
                 TreeView(tree:tree)
             }
         }
+         */
     }
     
     private func deleteTrees(offsets: IndexSet) {
