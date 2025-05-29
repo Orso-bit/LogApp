@@ -42,11 +42,20 @@ struct MeasurementView: View {
                         VStack{
                             Image(systemName: "ruler.fill")
                                 .foregroundStyle(.white)
-                            Text("\(tree.currentHeight)")
-                                .lineLimit(1)
-                                .font(.title)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.white)
+                            if let currentHeight = tree.currentHeight{
+                                VStack{
+                                    Text(currentHeight)
+                                        .lineLimit(1)
+                                        .font(.title)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(Color.white)
+                                }
+                            } else {
+                                Text ("unknown")
+                                    .font(.title)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.white)
+                            }
                             Text("height")
                                 .font(.title3)
                                 .fontWeight(.thin)
@@ -65,11 +74,20 @@ struct MeasurementView: View {
                         VStack{
                             Image(systemName: "ruler.fill")
                                 .foregroundStyle(.white)
-                            Text("\(tree.currentLength)")
-                                .lineLimit(1)
-                                .font(.title)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.white)
+                            if let currentLength = tree.currentLength{
+                                VStack{
+                                    Text(currentLength)
+                                        .lineLimit(1)
+                                        .font(.title)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(Color.white)
+                                }
+                            } else {
+                                Text ("unknown")
+                                    .font(.title)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.white)
+                            }
                             Text("trunk diameter")
                                 .font(.title3)
                                 .fontWeight(.thin)
@@ -91,11 +109,20 @@ struct MeasurementView: View {
                     VStack{
                         Image(systemName: "angle")
                             .foregroundStyle(.white)
-                        Text("\(tree.currentInclination)")
-                            .lineLimit(1)
-                            .font(.title)
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.white)
+                        if let currentInclination = tree.currentInclination{
+                            VStack{
+                                Text(currentInclination)
+                                    .lineLimit(1)
+                                    .font(.title)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.white)
+                            }
+                        } else {
+                            Text ("unknown")
+                                .font(.title)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.white)
+                        }
                         Text("inclination")
                             .font(.title3)
                             .fontWeight(.thin)
@@ -113,11 +140,20 @@ struct MeasurementView: View {
                     VStack{
                         Image(systemName: "leaf.fill")
                             .foregroundStyle(.white)
-                        Text("\(tree.currentDiameter)")
-                            .lineLimit(1)
-                            .font(.title)
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.white)
+                        if let currentProjection = tree.currentDiameter{
+                            VStack{
+                                Text(currentProjection)
+                                    .lineLimit(1)
+                                    .font(.title)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.white)
+                            }
+                        } else {
+                            Text ("unknown")
+                                .font(.title)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.white)
+                        }
                         Text("crown projection")
                             .font(.title3)
                             .fontWeight(.thin)
